@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FlowerAppModelStoreContainer" CdmEntityContainer="FlowerAppEntities">
+    <EntitySetMapping Name="tbl_categories">
+      <EntityTypeMapping TypeName="FlowerAppModel.tbl_categories">
+        <MappingFragment StoreEntitySet="tbl_categories">
+          <ScalarProperty Name="ID_category" ColumnName="ID_category" />
+          <ScalarProperty Name="category" ColumnName="category" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_creditCard">
+      <EntityTypeMapping TypeName="FlowerAppModel.tbl_creditCard">
+        <MappingFragment StoreEntitySet="tbl_creditCard">
+          <ScalarProperty Name="id_creditcard" ColumnName="id_creditcard" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="digits" ColumnName="digits" />
+          <ScalarProperty Name="month" ColumnName="month" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="card_address" ColumnName="card_address" />
+          <ScalarProperty Name="ID_user" ColumnName="ID_user" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_products">
+      <EntityTypeMapping TypeName="FlowerAppModel.tbl_products">
+        <MappingFragment StoreEntitySet="tbl_products">
+          <ScalarProperty Name="Code_product" ColumnName="Code_product" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ID_Category" ColumnName="ID_Category" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_purchases">
+      <EntityTypeMapping TypeName="FlowerAppModel.tbl_purchases">
+        <MappingFragment StoreEntitySet="tbl_purchases">
+          <ScalarProperty Name="ID_ticket" ColumnName="ID_ticket" />
+          <ScalarProperty Name="Code_product" ColumnName="Code_product" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="PurchaseID" ColumnName="PurchaseID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_ticket">
+      <EntityTypeMapping TypeName="FlowerAppModel.tbl_ticket">
+        <MappingFragment StoreEntitySet="tbl_ticket">
+          <ScalarProperty Name="Ticket" ColumnName="Ticket" />
+          <ScalarProperty Name="datetime" ColumnName="datetime" />
+          <ScalarProperty Name="deliveryAddress" ColumnName="deliveryAddress" />
+          <ScalarProperty Name="ID_user" ColumnName="ID_user" />
+          <ScalarProperty Name="ID_ticket" ColumnName="ID_ticket" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_users">
+      <EntityTypeMapping TypeName="FlowerAppModel.tbl_users">
+        <MappingFragment StoreEntitySet="tbl_users">
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="mail" ColumnName="mail" />
+          <ScalarProperty Name="telephone" ColumnName="telephone" />
+          <ScalarProperty Name="ID_user" ColumnName="ID_user" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_usersRecords">
+      <EntityTypeMapping TypeName="FlowerAppModel.tbl_usersRecords">
+        <MappingFragment StoreEntitySet="tbl_usersRecords">
+          <ScalarProperty Name="id_record" ColumnName="id_record" />
+          <ScalarProperty Name="record_time" ColumnName="record_time" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="user" ColumnName="user" />
+          <ScalarProperty Name="class" ColumnName="class" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_favorites">
+      <EntityTypeMapping TypeName="FlowerAppModel.tbl_favorites">
+        <MappingFragment StoreEntitySet="tbl_favorites">
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="product_ID" ColumnName="product_ID" />
+          <ScalarProperty Name="username_ID" ColumnName="username_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

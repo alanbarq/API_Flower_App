@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e77dd6a8189a4db5b7a0cb14b652d338" Name="Diagram1">
+        <EntityTypeShape EntityType="FlowerAppModel.tbl_categories" Width="1.5" PointX="5.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlowerAppModel.tbl_creditCard" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlowerAppModel.tbl_products" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlowerAppModel.tbl_purchases" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlowerAppModel.tbl_ticket" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlowerAppModel.tbl_users" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FlowerAppModel.tbl_usersRecords" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="FlowerAppModel.FK_tbl_products_tbl_categories" ManuallyRouted="false" />
+        <AssociationConnector Association="FlowerAppModel.FK_tbl_creditCard_tbl_users" ManuallyRouted="false" />
+        <AssociationConnector Association="FlowerAppModel.FK_tbl_purchases_tbl_ticket" ManuallyRouted="false" />
+        <AssociationConnector Association="FlowerAppModel.FK_tbl_ticket_tbl_users" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="FlowerAppModel.tbl_favorites" Width="1.5" PointX="10.25" PointY="2.375" />
+        <AssociationConnector Association="FlowerAppModel.FK_tbl_favorites_tbl_products" />
+        <AssociationConnector Association="FlowerAppModel.FK_tbl_favorites_tbl_users" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

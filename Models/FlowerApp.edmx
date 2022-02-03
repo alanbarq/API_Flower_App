@@ -1,0 +1,519 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FlowerAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_categories">
+          <Key>
+            <PropertyRef Name="ID_category" />
+          </Key>
+          <Property Name="ID_category" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="category" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_creditCard">
+          <Key>
+            <PropertyRef Name="id_creditcard" />
+          </Key>
+          <Property Name="id_creditcard" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="digits" Type="char" MaxLength="16" Nullable="false" />
+          <Property Name="month" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="year" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="card_address" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ID_user" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_favorites">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username_ID" Type="int" Nullable="false" />
+          <Property Name="product_ID" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_products">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="Code_product" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ID_Category" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_purchases">
+          <Key>
+            <PropertyRef Name="PurchaseID" />
+          </Key>
+          <Property Name="ID_ticket" Type="int" Nullable="false" />
+          <Property Name="Code_product" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="PurchaseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_ticket">
+          <Key>
+            <PropertyRef Name="ID_ticket" />
+          </Key>
+          <Property Name="Ticket" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="datetime" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="deliveryAddress" Type="varchar" MaxLength="200" />
+          <Property Name="ID_user" Type="int" Nullable="false" />
+          <Property Name="ID_ticket" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_users">
+          <Key>
+            <PropertyRef Name="ID_user" />
+          </Key>
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="mail" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="telephone" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="ID_user" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_usersRecords">
+          <Key>
+            <PropertyRef Name="id_record" />
+          </Key>
+          <Property Name="id_record" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="record_time" Type="date" />
+          <Property Name="description" Type="varchar" MaxLength="100" />
+          <Property Name="user" Type="varchar" MaxLength="200" />
+          <Property Name="class" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK_tbl_creditCard_tbl_users">
+          <End Role="tbl_users" Type="Self.tbl_users" Multiplicity="1" />
+          <End Role="tbl_creditCard" Type="Self.tbl_creditCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_users">
+              <PropertyRef Name="ID_user" />
+            </Principal>
+            <Dependent Role="tbl_creditCard">
+              <PropertyRef Name="ID_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_favorites_tbl_products">
+          <End Role="tbl_products" Type="Self.tbl_products" Multiplicity="1" />
+          <End Role="tbl_favorites" Type="Self.tbl_favorites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_products">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_favorites">
+              <PropertyRef Name="product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_favorites_tbl_users">
+          <End Role="tbl_users" Type="Self.tbl_users" Multiplicity="1" />
+          <End Role="tbl_favorites" Type="Self.tbl_favorites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_users">
+              <PropertyRef Name="ID_user" />
+            </Principal>
+            <Dependent Role="tbl_favorites">
+              <PropertyRef Name="username_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_products_tbl_categories">
+          <End Role="tbl_categories" Type="Self.tbl_categories" Multiplicity="1" />
+          <End Role="tbl_products" Type="Self.tbl_products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_categories">
+              <PropertyRef Name="ID_category" />
+            </Principal>
+            <Dependent Role="tbl_products">
+              <PropertyRef Name="ID_Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_purchases_tbl_ticket">
+          <End Role="tbl_ticket" Type="Self.tbl_ticket" Multiplicity="1" />
+          <End Role="tbl_purchases" Type="Self.tbl_purchases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ticket">
+              <PropertyRef Name="ID_ticket" />
+            </Principal>
+            <Dependent Role="tbl_purchases">
+              <PropertyRef Name="ID_ticket" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_ticket_tbl_users">
+          <End Role="tbl_users" Type="Self.tbl_users" Multiplicity="1" />
+          <End Role="tbl_ticket" Type="Self.tbl_ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_users">
+              <PropertyRef Name="ID_user" />
+            </Principal>
+            <Dependent Role="tbl_ticket">
+              <PropertyRef Name="ID_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FlowerAppModelStoreContainer">
+          <EntitySet Name="tbl_categories" EntityType="Self.tbl_categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_creditCard" EntityType="Self.tbl_creditCard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_favorites" EntityType="Self.tbl_favorites" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_products" EntityType="Self.tbl_products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_purchases" EntityType="Self.tbl_purchases" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_ticket" EntityType="Self.tbl_ticket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_users" EntityType="Self.tbl_users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_usersRecords" EntityType="Self.tbl_usersRecords" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbl_creditCard_tbl_users" Association="Self.FK_tbl_creditCard_tbl_users">
+            <End Role="tbl_users" EntitySet="tbl_users" />
+            <End Role="tbl_creditCard" EntitySet="tbl_creditCard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_favorites_tbl_products" Association="Self.FK_tbl_favorites_tbl_products">
+            <End Role="tbl_products" EntitySet="tbl_products" />
+            <End Role="tbl_favorites" EntitySet="tbl_favorites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_favorites_tbl_users" Association="Self.FK_tbl_favorites_tbl_users">
+            <End Role="tbl_users" EntitySet="tbl_users" />
+            <End Role="tbl_favorites" EntitySet="tbl_favorites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_products_tbl_categories" Association="Self.FK_tbl_products_tbl_categories">
+            <End Role="tbl_categories" EntitySet="tbl_categories" />
+            <End Role="tbl_products" EntitySet="tbl_products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_purchases_tbl_ticket" Association="Self.FK_tbl_purchases_tbl_ticket">
+            <End Role="tbl_ticket" EntitySet="tbl_ticket" />
+            <End Role="tbl_purchases" EntitySet="tbl_purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_ticket_tbl_users" Association="Self.FK_tbl_ticket_tbl_users">
+            <End Role="tbl_users" EntitySet="tbl_users" />
+            <End Role="tbl_ticket" EntitySet="tbl_ticket" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FlowerAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_categories">
+          <Key>
+            <PropertyRef Name="ID_category" />
+          </Key>
+          <Property Name="ID_category" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_products" Relationship="Self.FK_tbl_products_tbl_categories" FromRole="tbl_categories" ToRole="tbl_products" />
+        </EntityType>
+        <EntityType Name="tbl_creditCard">
+          <Key>
+            <PropertyRef Name="id_creditcard" />
+          </Key>
+          <Property Name="id_creditcard" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="digits" Type="String" MaxLength="16" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="month" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="year" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="card_address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_user" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_users" Relationship="Self.FK_tbl_creditCard_tbl_users" FromRole="tbl_creditCard" ToRole="tbl_users" />
+        </EntityType>
+        <EntityType Name="tbl_products">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="Code_product" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID_Category" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="tbl_categories" Relationship="Self.FK_tbl_products_tbl_categories" FromRole="tbl_products" ToRole="tbl_categories" />
+          <NavigationProperty Name="tbl_favorites" Relationship="FlowerAppModel.FK_tbl_favorites_tbl_products" FromRole="tbl_products" ToRole="tbl_favorites" />
+        </EntityType>
+        <EntityType Name="tbl_purchases">
+          <Key>
+            <PropertyRef Name="PurchaseID" />
+          </Key>
+          <Property Name="ID_ticket" Type="Int32" Nullable="false" />
+          <Property Name="Code_product" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="PurchaseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="tbl_ticket" Relationship="Self.FK_tbl_purchases_tbl_ticket" FromRole="tbl_purchases" ToRole="tbl_ticket" />
+        </EntityType>
+        <EntityType Name="tbl_ticket">
+          <Key>
+            <PropertyRef Name="ID_ticket" />
+          </Key>
+          <Property Name="Ticket" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="datetime" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="deliveryAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ID_user" Type="Int32" Nullable="false" />
+          <Property Name="ID_ticket" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="tbl_purchases" Relationship="Self.FK_tbl_purchases_tbl_ticket" FromRole="tbl_ticket" ToRole="tbl_purchases" />
+          <NavigationProperty Name="tbl_users" Relationship="Self.FK_tbl_ticket_tbl_users" FromRole="tbl_ticket" ToRole="tbl_users" />
+        </EntityType>
+        <EntityType Name="tbl_users">
+          <Key>
+            <PropertyRef Name="ID_user" />
+          </Key>
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telephone" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ID_user" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="tbl_creditCard" Relationship="Self.FK_tbl_creditCard_tbl_users" FromRole="tbl_users" ToRole="tbl_creditCard" />
+          <NavigationProperty Name="tbl_ticket" Relationship="Self.FK_tbl_ticket_tbl_users" FromRole="tbl_users" ToRole="tbl_ticket" />
+          <Property Name="Role" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_favorites" Relationship="FlowerAppModel.FK_tbl_favorites_tbl_users" FromRole="tbl_users" ToRole="tbl_favorites" />
+        </EntityType>
+        <EntityType Name="tbl_usersRecords">
+          <Key>
+            <PropertyRef Name="id_record" />
+          </Key>
+          <Property Name="id_record" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="record_time" Type="DateTime" Precision="0" />
+          <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="user" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="class" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_tbl_products_tbl_categories">
+          <End Role="tbl_categories" Type="Self.tbl_categories" Multiplicity="1" />
+          <End Role="tbl_products" Type="Self.tbl_products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_categories">
+              <PropertyRef Name="ID_category" />
+            </Principal>
+            <Dependent Role="tbl_products">
+              <PropertyRef Name="ID_Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_creditCard_tbl_users">
+          <End Role="tbl_users" Type="Self.tbl_users" Multiplicity="1" />
+          <End Role="tbl_creditCard" Type="Self.tbl_creditCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_users">
+              <PropertyRef Name="ID_user" />
+            </Principal>
+            <Dependent Role="tbl_creditCard">
+              <PropertyRef Name="ID_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_purchases_tbl_ticket">
+          <End Role="tbl_ticket" Type="Self.tbl_ticket" Multiplicity="1" />
+          <End Role="tbl_purchases" Type="Self.tbl_purchases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ticket">
+              <PropertyRef Name="ID_ticket" />
+            </Principal>
+            <Dependent Role="tbl_purchases">
+              <PropertyRef Name="ID_ticket" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_ticket_tbl_users">
+          <End Role="tbl_users" Type="Self.tbl_users" Multiplicity="1" />
+          <End Role="tbl_ticket" Type="Self.tbl_ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_users">
+              <PropertyRef Name="ID_user" />
+            </Principal>
+            <Dependent Role="tbl_ticket">
+              <PropertyRef Name="ID_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FlowerAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_categories" EntityType="Self.tbl_categories" />
+          <EntitySet Name="tbl_creditCard" EntityType="Self.tbl_creditCard" />
+          <EntitySet Name="tbl_products" EntityType="Self.tbl_products" />
+          <EntitySet Name="tbl_purchases" EntityType="Self.tbl_purchases" />
+          <EntitySet Name="tbl_ticket" EntityType="Self.tbl_ticket" />
+          <EntitySet Name="tbl_users" EntityType="Self.tbl_users" />
+          <EntitySet Name="tbl_usersRecords" EntityType="Self.tbl_usersRecords" />
+          <AssociationSet Name="FK_tbl_products_tbl_categories" Association="Self.FK_tbl_products_tbl_categories">
+            <End Role="tbl_categories" EntitySet="tbl_categories" />
+            <End Role="tbl_products" EntitySet="tbl_products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_creditCard_tbl_users" Association="Self.FK_tbl_creditCard_tbl_users">
+            <End Role="tbl_users" EntitySet="tbl_users" />
+            <End Role="tbl_creditCard" EntitySet="tbl_creditCard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_purchases_tbl_ticket" Association="Self.FK_tbl_purchases_tbl_ticket">
+            <End Role="tbl_ticket" EntitySet="tbl_ticket" />
+            <End Role="tbl_purchases" EntitySet="tbl_purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_ticket_tbl_users" Association="Self.FK_tbl_ticket_tbl_users">
+            <End Role="tbl_users" EntitySet="tbl_users" />
+            <End Role="tbl_ticket" EntitySet="tbl_ticket" />
+          </AssociationSet>
+          <EntitySet Name="tbl_favorites" EntityType="FlowerAppModel.tbl_favorites" />
+          <AssociationSet Name="FK_tbl_favorites_tbl_products" Association="FlowerAppModel.FK_tbl_favorites_tbl_products">
+            <End Role="tbl_products" EntitySet="tbl_products" />
+            <End Role="tbl_favorites" EntitySet="tbl_favorites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_favorites_tbl_users" Association="FlowerAppModel.FK_tbl_favorites_tbl_users">
+            <End Role="tbl_users" EntitySet="tbl_users" />
+            <End Role="tbl_favorites" EntitySet="tbl_favorites" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tbl_favorites">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username_ID" Type="Int32" Nullable="false" />
+          <Property Name="product_ID" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_products" Relationship="FlowerAppModel.FK_tbl_favorites_tbl_products" FromRole="tbl_favorites" ToRole="tbl_products" />
+          <NavigationProperty Name="tbl_users" Relationship="FlowerAppModel.FK_tbl_favorites_tbl_users" FromRole="tbl_favorites" ToRole="tbl_users" />
+        </EntityType>
+        <Association Name="FK_tbl_favorites_tbl_products">
+          <End Type="FlowerAppModel.tbl_products" Role="tbl_products" Multiplicity="1" />
+          <End Type="FlowerAppModel.tbl_favorites" Role="tbl_favorites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_products">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_favorites">
+              <PropertyRef Name="product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_favorites_tbl_users">
+          <End Type="FlowerAppModel.tbl_users" Role="tbl_users" Multiplicity="1" />
+          <End Type="FlowerAppModel.tbl_favorites" Role="tbl_favorites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_users">
+              <PropertyRef Name="ID_user" />
+            </Principal>
+            <Dependent Role="tbl_favorites">
+              <PropertyRef Name="username_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FlowerAppModelStoreContainer" CdmEntityContainer="FlowerAppEntities">
+          <EntitySetMapping Name="tbl_categories">
+            <EntityTypeMapping TypeName="FlowerAppModel.tbl_categories">
+              <MappingFragment StoreEntitySet="tbl_categories">
+                <ScalarProperty Name="ID_category" ColumnName="ID_category" />
+                <ScalarProperty Name="category" ColumnName="category" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_creditCard">
+            <EntityTypeMapping TypeName="FlowerAppModel.tbl_creditCard">
+              <MappingFragment StoreEntitySet="tbl_creditCard">
+                <ScalarProperty Name="id_creditcard" ColumnName="id_creditcard" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="digits" ColumnName="digits" />
+                <ScalarProperty Name="month" ColumnName="month" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="card_address" ColumnName="card_address" />
+                <ScalarProperty Name="ID_user" ColumnName="ID_user" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_products">
+            <EntityTypeMapping TypeName="FlowerAppModel.tbl_products">
+              <MappingFragment StoreEntitySet="tbl_products">
+                <ScalarProperty Name="Code_product" ColumnName="Code_product" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ID_Category" ColumnName="ID_Category" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_purchases">
+            <EntityTypeMapping TypeName="FlowerAppModel.tbl_purchases">
+              <MappingFragment StoreEntitySet="tbl_purchases">
+                <ScalarProperty Name="ID_ticket" ColumnName="ID_ticket" />
+                <ScalarProperty Name="Code_product" ColumnName="Code_product" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="PurchaseID" ColumnName="PurchaseID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_ticket">
+            <EntityTypeMapping TypeName="FlowerAppModel.tbl_ticket">
+              <MappingFragment StoreEntitySet="tbl_ticket">
+                <ScalarProperty Name="Ticket" ColumnName="Ticket" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="deliveryAddress" ColumnName="deliveryAddress" />
+                <ScalarProperty Name="ID_user" ColumnName="ID_user" />
+                <ScalarProperty Name="ID_ticket" ColumnName="ID_ticket" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_users">
+            <EntityTypeMapping TypeName="FlowerAppModel.tbl_users">
+              <MappingFragment StoreEntitySet="tbl_users">
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+                <ScalarProperty Name="ID_user" ColumnName="ID_user" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_usersRecords">
+            <EntityTypeMapping TypeName="FlowerAppModel.tbl_usersRecords">
+              <MappingFragment StoreEntitySet="tbl_usersRecords">
+                <ScalarProperty Name="id_record" ColumnName="id_record" />
+                <ScalarProperty Name="record_time" ColumnName="record_time" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="class" ColumnName="class" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_favorites">
+            <EntityTypeMapping TypeName="FlowerAppModel.tbl_favorites">
+              <MappingFragment StoreEntitySet="tbl_favorites">
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="product_ID" ColumnName="product_ID" />
+                <ScalarProperty Name="username_ID" ColumnName="username_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

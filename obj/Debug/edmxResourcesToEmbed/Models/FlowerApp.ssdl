@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FlowerAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbl_categories">
+    <Key>
+      <PropertyRef Name="ID_category" />
+    </Key>
+    <Property Name="ID_category" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="category" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_creditCard">
+    <Key>
+      <PropertyRef Name="id_creditcard" />
+    </Key>
+    <Property Name="id_creditcard" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="digits" Type="char" MaxLength="16" Nullable="false" />
+    <Property Name="month" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="year" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="card_address" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="ID_user" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_favorites">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username_ID" Type="int" Nullable="false" />
+    <Property Name="product_ID" Type="int" Nullable="false" />
+    <Property Name="quantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_products">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="Code_product" Type="char" MaxLength="3" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Price" Type="float" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="ID_Category" Type="int" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_purchases">
+    <Key>
+      <PropertyRef Name="PurchaseID" />
+    </Key>
+    <Property Name="ID_ticket" Type="int" Nullable="false" />
+    <Property Name="Code_product" Type="char" MaxLength="3" Nullable="false" />
+    <Property Name="quantity" Type="int" Nullable="false" />
+    <Property Name="PurchaseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_ticket">
+    <Key>
+      <PropertyRef Name="ID_ticket" />
+    </Key>
+    <Property Name="Ticket" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="datetime" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="deliveryAddress" Type="varchar" MaxLength="200" />
+    <Property Name="ID_user" Type="int" Nullable="false" />
+    <Property Name="ID_ticket" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_users">
+    <Key>
+      <PropertyRef Name="ID_user" />
+    </Key>
+    <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="lastname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="address" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="mail" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="telephone" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="ID_user" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Role" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_usersRecords">
+    <Key>
+      <PropertyRef Name="id_record" />
+    </Key>
+    <Property Name="id_record" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="record_time" Type="date" />
+    <Property Name="description" Type="varchar" MaxLength="100" />
+    <Property Name="user" Type="varchar" MaxLength="200" />
+    <Property Name="class" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <Association Name="FK_tbl_creditCard_tbl_users">
+    <End Role="tbl_users" Type="Self.tbl_users" Multiplicity="1" />
+    <End Role="tbl_creditCard" Type="Self.tbl_creditCard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_users">
+        <PropertyRef Name="ID_user" />
+      </Principal>
+      <Dependent Role="tbl_creditCard">
+        <PropertyRef Name="ID_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_favorites_tbl_products">
+    <End Role="tbl_products" Type="Self.tbl_products" Multiplicity="1" />
+    <End Role="tbl_favorites" Type="Self.tbl_favorites" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_products">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tbl_favorites">
+        <PropertyRef Name="product_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_favorites_tbl_users">
+    <End Role="tbl_users" Type="Self.tbl_users" Multiplicity="1" />
+    <End Role="tbl_favorites" Type="Self.tbl_favorites" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_users">
+        <PropertyRef Name="ID_user" />
+      </Principal>
+      <Dependent Role="tbl_favorites">
+        <PropertyRef Name="username_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_products_tbl_categories">
+    <End Role="tbl_categories" Type="Self.tbl_categories" Multiplicity="1" />
+    <End Role="tbl_products" Type="Self.tbl_products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_categories">
+        <PropertyRef Name="ID_category" />
+      </Principal>
+      <Dependent Role="tbl_products">
+        <PropertyRef Name="ID_Category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_purchases_tbl_ticket">
+    <End Role="tbl_ticket" Type="Self.tbl_ticket" Multiplicity="1" />
+    <End Role="tbl_purchases" Type="Self.tbl_purchases" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_ticket">
+        <PropertyRef Name="ID_ticket" />
+      </Principal>
+      <Dependent Role="tbl_purchases">
+        <PropertyRef Name="ID_ticket" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_ticket_tbl_users">
+    <End Role="tbl_users" Type="Self.tbl_users" Multiplicity="1" />
+    <End Role="tbl_ticket" Type="Self.tbl_ticket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_users">
+        <PropertyRef Name="ID_user" />
+      </Principal>
+      <Dependent Role="tbl_ticket">
+        <PropertyRef Name="ID_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FlowerAppModelStoreContainer">
+    <EntitySet Name="tbl_categories" EntityType="Self.tbl_categories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_creditCard" EntityType="Self.tbl_creditCard" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_favorites" EntityType="Self.tbl_favorites" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_products" EntityType="Self.tbl_products" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_purchases" EntityType="Self.tbl_purchases" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_ticket" EntityType="Self.tbl_ticket" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_users" EntityType="Self.tbl_users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_usersRecords" EntityType="Self.tbl_usersRecords" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_tbl_creditCard_tbl_users" Association="Self.FK_tbl_creditCard_tbl_users">
+      <End Role="tbl_users" EntitySet="tbl_users" />
+      <End Role="tbl_creditCard" EntitySet="tbl_creditCard" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_favorites_tbl_products" Association="Self.FK_tbl_favorites_tbl_products">
+      <End Role="tbl_products" EntitySet="tbl_products" />
+      <End Role="tbl_favorites" EntitySet="tbl_favorites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_favorites_tbl_users" Association="Self.FK_tbl_favorites_tbl_users">
+      <End Role="tbl_users" EntitySet="tbl_users" />
+      <End Role="tbl_favorites" EntitySet="tbl_favorites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_products_tbl_categories" Association="Self.FK_tbl_products_tbl_categories">
+      <End Role="tbl_categories" EntitySet="tbl_categories" />
+      <End Role="tbl_products" EntitySet="tbl_products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_purchases_tbl_ticket" Association="Self.FK_tbl_purchases_tbl_ticket">
+      <End Role="tbl_ticket" EntitySet="tbl_ticket" />
+      <End Role="tbl_purchases" EntitySet="tbl_purchases" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_ticket_tbl_users" Association="Self.FK_tbl_ticket_tbl_users">
+      <End Role="tbl_users" EntitySet="tbl_users" />
+      <End Role="tbl_ticket" EntitySet="tbl_ticket" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
